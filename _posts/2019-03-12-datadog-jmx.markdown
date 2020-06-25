@@ -72,6 +72,7 @@ Note very important points:
 Everything works fine with upon setup, but after few weeks, we suddenly experienced missing application metrics, after investigations, we found out that the jmxfetcher process in the datadog daemonset has been constantly killed by our host OOM killer. The Datadog daemonset spawns up the jmxfetcher(Java) process as a sub process with`-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap` jvm options, as the datadog main agent process took more memory over time, at some point Java process won’t be able to allocate memory anymore, thus get killed by the host OOM killer. Datadog has implemented auto-restart for the jmxfetcher, by the time the other processes took up to 80% of memory, it will try to restart the jmxfetcher again and again, thus, at one point we lost jmx metrics. I have implemented a solution based on upon finding to fail the liveness probe of datadog daemonset by patching the existing pod liveness probe tests:
 
 Memory check based on the container cgroup:
+[container_memory_check.py](https://github.com/mrmuggymuggy/data-team-bootstrap/blob/master/data-team-bootstrap-helm/monitoring/container_memory_check.py)
 ```python
 #!/usr/bin/env python
 import psutil
@@ -103,6 +104,7 @@ if __name__== "__main__":
 when the total memory of all processes is over 90% of the allocated resource, we will fail the memory check.
 
 Add checks to the end of the datadog liveness probe:
+[probe.sh](https://github.com/mrmuggymuggy/data-team-bootstrap/blob/master/data-team-bootstrap-helm/monitoring/probe.sh)
 ```bash
 #!/bin/sh
 set -e
