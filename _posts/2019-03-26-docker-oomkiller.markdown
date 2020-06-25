@@ -15,14 +15,16 @@ What this article interest on, is how to find out the container resource limits 
 
 In the unix based containers you can find out the cgroup limit and usage in /sys/fs/cgroup
 
-![alt]({{ site.url }}{{ site.baseurl }}/assets/images/docker-oomkiller/cgroup1.png)
-{: .full}
+| ![memory limit and usage inside your docker container]({{ site.url }}{{ site.baseurl }}/assets/images/docker-oomkiller/cgroup1.png)
+|:--:|
+| *memory limit and usage inside your docker container* |
 
 upon you can find the total memory limit, and in memory.stat you can find the total RSS memory usage at the moment for all the processes running inside the docker container.
 cgroup contains also many other system metrics, such as cpu, devices and pids, the whole eco-system is a bit complex, a good documentation can be found on [link](https://www.kernel.org/doc/Documentation/cgroup-v1/cgroups.txt).
 one last thing, you can find the pid mapping from container to host with /pid/$pid/cgroup
 
-![alt]({{ site.url }}{{ site.baseurl }}/assets/images/docker-oomkiller/cgroup2.png)
-{: .full}
+| ![alt]({{ site.url }}{{ site.baseurl }}/assets/images/docker-oomkiller/cgroup2.png)
+|:--:|
+| *container to host pid mapping* |
 
 it is interesting.
