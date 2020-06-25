@@ -1,10 +1,10 @@
 ---
 title:  "Collect jmx metrics of a Kubernetes deployment with datadog"
-date:   2020-06-10 16:36:37 +0100
-categories: datadog monitoring jmx kubernetes
+date:   2019-03-12 16:36:37 +0100
+categories: Datadog Monitoring Jmx Kubernetes
 tags:
-  - devops
-  - datadog
+  - Devops
+  - Datadog
 ---
 Since 2018 My team decided to swich to Datadog to collect the application related metrics. 
 
