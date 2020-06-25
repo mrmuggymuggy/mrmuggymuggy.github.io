@@ -10,6 +10,6 @@ It is been more than one year that I have not updated my [Medium space](https://
 
 As I use Markdown and Git daily, and recently I discovered that Github has the native Jekyll support to publish and host pages. so I decided to move there. and hopefully it will motivate me for more publications.
 
-My new blog link is : https://mrmuggymuggy.github.io/
+My new blog link is : [https://mrmuggymuggy.github.io](https://mrmuggymuggy.github.io/)
 
 For the moment I just moved 2 existing articles here, I have bunch of other articles in draft related to Apark/Airflow on kubernetes and Terragrunt, I hope I will have time to finish them. One of the draw back with Jekyll on github is the comments management, I will try to figure it out in the future.
