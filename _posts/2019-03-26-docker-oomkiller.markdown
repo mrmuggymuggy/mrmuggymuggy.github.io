@@ -3,7 +3,7 @@ title:  "Behind the Docker Daemon has the OOM-Killer"
 date:   2019-03-26 16:36:37 +0100
 categories: Docker Kubernetes Kernel
 tags:
-  - devops
+  - Devops
   - Docker
 ---
 
