@@ -10,11 +10,11 @@ tags:
 ---
 
 ## Introduction
-[Airflow](https://airflow.apache.org/docs/stable/) is nowadays a widely used ETL scheduler. I really like that one can write ETL pipelines in python code. My colleague Laurent said : airflow is great for simple tasks, don't try to implement complex logic with it.
+[Airflow](https://airflow.apache.org/docs/stable/) is nowadays a widely used ETL scheduler. I really like that one can write ETL pipelines in python code. My colleague Laurent said : Airflow is great for simple tasks, don't try to implement complex logic.
 
-The reason we introduce Airflow is to replace AWS Glue for historical data reprocess, to lower AWS cost and achieve code unity of real time /historical data process.
+The reason we introduce Airflow is to replace AWS Glue for historical data reprocess, to lower AWS cost and achieve code unity of real time / historical data process.
 
-This article is the part two of my last [article](https://mrmuggymuggy.github.io/spark/kubernetes/spark-structure-streaming-on-k8s/) -- Spark data processing pipeline on kubernetes, I will not introduce airflow basic notions such as `dag`, `operator`. We are interested in airflow's setup on Kubernetes and the usage of the airflow's [kubernetes pod operator](https://airflow.apache.org/docs/stable/kubernetes.html) for Spark batch ETL reprocess(The blue rectangle part of the flowchart).
+This article is the part two of my last [article](https://mrmuggymuggy.github.io/spark/kubernetes/spark-structure-streaming-on-k8s/) -- Spark data process pipeline on kubernetes, I will not introduce airflow basic notions such as `dag`, `operator`. We are interested in airflow's setup on Kubernetes and the usage of the airflow's [kubernetes pod operator](https://airflow.apache.org/docs/stable/kubernetes.html) for Spark batch ETL data reprocess(The blue rectangle part of the flowchart).
 
 | ![data pipeline with spark on Kubernetes]({{ site.url }}{{ site.baseurl }}/assets/images/spark-k8s/spark_on_k8s_archi.png)
 |:--:|
@@ -23,7 +23,7 @@ This article is the part two of my last [article](https://mrmuggymuggy.github.io
 I will also list a few pitfalls and inconveniences of its usage based on my experiences in Part two of this article.
 
 ### Airflow Kubernetes executor
-Airflow supports various executors, we must mention the kubernetes executor. This [article](https://marclamberti.com/blog/airflow-kubernetes-executor/) gives a detailed explanation of kubernetes executor mode. The official [article](https://airflow.readthedocs.io/en/latest/executor/kubernetes.html) gives insides on how it works behind the scene. Unfortunately we could not use this executor mode due to the limitation of AWS EBS. Airflow on kubernetes claims persistent volumes to mount `logs` and `dags`, those volumes are shared between Airflow webUI, schedulers and workers(in this case kubernetes pods), Our kubernetes cluster run on AWS EKS, it uses aws EBS for persistent volumes, AWS EBS can only be mounted to one EC2 instance. Thus it can't be shared between multiple pods of different nodes. we could define the pod affinity of the airflow worker pod to always run on one node, then it lost the scale advantage of the cluster.
+Airflow supports various executors, we must mention the kubernetes executor. This [article](https://marclamberti.com/blog/airflow-kubernetes-executor/) gives a detailed explanation of kubernetes executor mode. The official [documentation](https://airflow.readthedocs.io/en/latest/executor/kubernetes.html) gives insides on how it works behind the scene. Unfortunately we could not use this executor mode due to the limitation of AWS EBS. Airflow on kubernetes claims persistent volumes to mount `logs` and `dags`, those volumes are shared between Airflow webUI, schedulers and workers(in this case kubernetes pods), Our kubernetes cluster run on AWS EKS, it uses aws EBS for persistent volumes, AWS EBS can only be mounted to one EC2 instance. Thus it can't be shared between multiple pods of different nodes. we could define the pod affinity of the airflow worker pod to always run on one node, then it lost the scale advantage.
 
 The [tutorial](https://marclamberti.com/blog/airflow-kubernetes-executor/) I pointed earlier, doesn't contain any airflow deployment. You can try out the official [airflow helm chart](https://github.com/helm/charts/tree/master/stable/airflow) with Kubernetes executor, it works for you if your Kubernetes cluster does not rely on AWS EBS.  
 
