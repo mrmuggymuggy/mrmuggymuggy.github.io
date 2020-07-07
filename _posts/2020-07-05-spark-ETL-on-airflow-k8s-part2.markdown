@@ -10,9 +10,8 @@ tags:
 ---
 
 ## Introduction
-
+Let's talk about pitfalls and inconveniences of airflow!
 It is the following part of this [article]({{ site.url }}{{ site.baseurl }}/spark/kubernetes/airflow/spark-ETL-on-airflow-k8s-part1/)
-Let's talk about pitfalls and inconveniences !
 
 ## Pitfalls and inconveniences
 Keep your airflow dag simple!
