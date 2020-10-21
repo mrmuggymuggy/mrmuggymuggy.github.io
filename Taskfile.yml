@@ -1,20 +1,9 @@
 # https://taskfile.dev
 
 version: '2'
-env:
-  JEKYLL_IMAGE: jekyll/jekyll:3.8
 
 tasks:
-  serve:
-    cmds:
-      - docker run --rm -p 4000:4000 --volume="$PWD:/srv/jekyll" --volume="$PWD/vendor/bundle:/usr/local/bundle" -it $JEKYLL_IMAGE jekyll s
-  clean:
-    cmds:
-      - docker run --rm -p 4000:4000 --volume="$PWD:/srv/jekyll" --volume="$PWD/vendor/bundle:/usr/local/bundle" -it $JEKYLL_IMAGE jekyll clean
-  build:
-    cmds:
-      - docker run --rm -p 4000:4000 --volume="$PWD:/srv/jekyll" --volume="$PWD/vendor/bundle:/usr/local/bundle" -it $JEKYLL_IMAGE jekyll build
 
-  local.run:
+  local.dev:
     cmds:
-      - docker run --rm -p 4000:4000 --volume="$PWD:/srv/jekyll" --volume="$PWD/vendor/bundle:/usr/local/bundle" -it $JEKYLL_IMAGE bash
+      -  docker run --rm -p 4000:4000 --volume="$PWD:/srv/jekyll" --volume="$PWD/vendor/bundle:/usr/local/bundle" -it jekyll/jekyll:3.8 jekyll s
